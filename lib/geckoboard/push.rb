@@ -40,13 +40,13 @@ module Geckoboard
     def text(items)
       data = items.collect do |item|
         type = case item[:type]
-               when :alert
-                 1
-               when :info
-                 2
-               else
-                 0
-               end
+        when :alert
+          1
+        when :info
+          2
+        else
+          0
+        end
         {:text => item[:text], :type => type}
       end
       self.push(:item => data)
@@ -54,7 +54,9 @@ module Geckoboard
 
     # Red, amber and green should be values
     def rag(red, amber, green)
-      self.push(:item => [{:value => red, :text => "a"}, {:value => amber, :text => "a"}, {:value => green, :text => "a"}])
+      self.push(:item => [{:value => red[:value], :text => red[:text]},
+                          {:value => amber[:value], :text => amber[:text]},
+                          {:value => green[:value], :text => green[:text]}])
     end
 
     # Values should be an array of numeric values
