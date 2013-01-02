@@ -52,7 +52,7 @@ module Geckoboard
       self.push(:item => data)
     end
 
-    # Red, amber and green should be values
+    # Red, amber and green should be hash
     def rag(red, amber, green)
       self.push(:item => [{:value => red[:value], :text => red[:text]},
                           {:value => amber[:value], :text => amber[:text]},
@@ -76,9 +76,14 @@ module Geckoboard
       self.push(:item => data)
     end
 
-    # Value, min and max should be numeric values
+    # Value is numeric, min and max should be hash
     def geckometer(value, min, max)
-      self.push(:item => value, :min => {:value => min}, :max => {:value => max})
+      min[:text] |= "Min value"
+      max[:text] |= "Max value"
+      self.push(:item => value,
+                :min => {:text => min[:text], :value => min[:value]},
+                :max => {:text => max[:text], :value => max[:value]}
+                )
     end
 
     # Items should be an array of hashes, each hash containing:
