@@ -78,8 +78,8 @@ module Geckoboard
 
     # Value is numeric, min and max should be hash
     def geckometer(value, min, max)
-      min[:text] |= "Min value"
-      max[:text] |= "Max value"
+      min[:text] ||= "Min value"
+      max[:text] ||= "Max value"
       self.push(:item => value,
                 :min => {:text => min[:text], :value => min[:value]},
                 :max => {:text => max[:text], :value => max[:value]}
